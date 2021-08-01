@@ -1,3 +1,4 @@
+import random
 import re
 
 import discord
@@ -47,11 +48,26 @@ def replace_reaction_placeholders(bot: OoerBot, message: discord.Message, respon
         'user.name': member.name,
     }
 
-    def lookup(match):
+    def lookup(match: re.Match) -> str:
         orig = match.group(0)
         key = match.group(1)
         return replacements.get(key, orig)
 
     response = re.sub(r'%([a-z.]+)%', lookup, response)
+
+    def rng(match: re.Match) -> str:
+        start = int(match.group('from') or 0)
+        stop = int(match.group('to') or 0)
+
+        if start == 0 and stop == 0:
+            start = 0
+            stop = 10
+
+        if start >= stop:
+            return ''
+
+        return str(random.randint(start, stop))
+
+    response = re.sub(r'%rng(?:(?P<from>(?:-)?\d+)-(?P<to>(?:-)?\d+))?%', rng, response)
 
     return response
