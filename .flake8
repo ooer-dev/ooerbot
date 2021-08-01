@@ -1,4 +1,4 @@
 [flake8]
 max-line-length = 120
 import-order-style = pycharm
-application-import-names = ooerbot,config
+application-import-names = ooerbot
