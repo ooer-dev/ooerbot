@@ -1,16 +1,18 @@
 import logging
+import os
 from typing import Any, List
 
 import discord
 from discord.ext import commands
 
-from config import ADMIN_USER_IDS
-
 
 class OoerBot(commands.Bot):
     def __init__(self, **kwargs: Any) -> None:
         command_prefix = '.'
-        owner_ids = kwargs.pop('owner_ids', set(ADMIN_USER_IDS))
+
+        owner_ids = {int(s) for s in os.getenv('ADMIN_USER_IDS', '').split(',')}
+        owner_ids = kwargs.pop('owner_ids', set(owner_ids))
+
         case_insensitive = kwargs.pop('case_insensitive', True)
 
         default_intents = discord.Intents(

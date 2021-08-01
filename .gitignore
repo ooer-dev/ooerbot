@@ -5,4 +5,4 @@ __pycache__/
 
 # Ignore files
 *.py[cod]
-config.py
+.env

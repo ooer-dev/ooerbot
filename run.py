@@ -1,19 +1,23 @@
 import logging
+import os
 
-from config import LOG_LEVEL, TOKEN
+from dotenv import load_dotenv
+
 from ooerbot.bot import OoerBot
 
 
 def main():
+    load_dotenv()
+
     logging.basicConfig(
         format='[%(asctime)s] %(levelname)8s: %(message)s\t(%(name)s)',
         datefmt='%Y-%m-%d %H:%M:%S',
-        level=LOG_LEVEL
+        level=os.getenv('LOG_LEVEL', 'INFO')
     )
 
     bot = OoerBot()
     bot.load_extensions()
-    bot.run(TOKEN)
+    bot.run(os.getenv('DISCORD_TOKEN'))
 
 
 if __name__ == '__main__':
