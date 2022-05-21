@@ -37,6 +37,7 @@ class OoerBot(commands.Bot):
         self.log = logging.getLogger(__name__)
         self._extensions_to_load = [
             'ooerbot.cogs.reactions',
+            'ooerbot.cogs.reaction_admin',
         ]
 
     def load_extensions(self) -> None:

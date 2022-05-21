@@ -9,6 +9,22 @@ from ooerbot.models.reaction import Reaction
 YAML_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'reactions.yml')
 
 
+async def create_reaction(guild_id: int, trigger: str, response: str) -> Reaction:
+    pass
+
+
+async def get_reaction(guild_id: int, reaction_id: int) -> Reaction:
+    pass
+
+
+async def update_reaction(guild_id: int, reaction_id: int, response: str) -> Reaction:
+    pass
+
+
+async def delete_reaction(guild_id: int, reaction_id: int) -> bool:
+    pass
+
+
 # This will eventually be replaced with a call to Crapi.
 # For now, this will work for testing the bot.
 async def get_reactions_for_guild(guild_id: int) -> List[Reaction]:
