@@ -2,6 +2,8 @@ import random
 import re
 
 import discord
+from ably import AblyRealtime
+from ably.types.message import Message
 from discord.ext import commands
 
 from ooerbot.api.client import ReactionAPI
@@ -14,14 +16,34 @@ class Reactions(commands.Cog):
     def __init__(self, bot: OoerBot) -> None:
         self.bot = bot
         self.api = ReactionAPI(str(bot.settings.api_url), bot.settings.api_key)
+        self.ably = AblyRealtime(bot.settings.ably_key)
         self._reaction_cache: dict[int, list[Reaction]] = {}
 
     async def cog_unload(self) -> None:
         await self.api.close()
+        await self.ably.close()
 
     @commands.Cog.listener()
     async def on_ready(self) -> None:
         await self.fetch_initial_reactions()
+        await self.subscribe_to_reactions()
+
+    async def fetch_initial_reactions(self) -> None:
+        guild: discord.Guild
+        for guild in self.bot.guilds:
+            await self._fetch_reactions_for_guild(guild.id)
+
+    async def subscribe_to_reactions(self) -> None:
+        channel = self.ably.channels.get("private:reactions")
+        await channel.subscribe(self._reaction_event_handler)
+
+    async def _reaction_event_handler(self, message: Message) -> None:
+        await self._fetch_reactions_for_guild(message.data["model"]["guild_id"])
+
+    async def _fetch_reactions_for_guild(self, guild_id: int) -> None:
+        self.bot.log.info("Fetching reactions for guild %d", guild_id)
+        reactions = await self.api.get_reactions(guild_id)
+        self._reaction_cache[guild_id] = reactions
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message) -> None:
@@ -52,13 +74,6 @@ class Reactions(commands.Cog):
             response = response.replace("%target%", target)
 
         await messageable.send(content=response, reference=reference)  # type: ignore[arg-type]
-
-    async def fetch_initial_reactions(self) -> None:
-        guild: discord.Guild
-        for guild in self.bot.guilds:
-            reactions = await self.api.get_reactions(guild.id)
-
-            self._reaction_cache[guild.id] = reactions
 
     def _get_possible_reactions(self, message: discord.Message) -> list[Reaction]:
         trigger: str = message.content.lower().rstrip()

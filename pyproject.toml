@@ -10,3 +10,7 @@ files = "."
 python_version = "3.10"
 platform = "linux"
 strict = true
+
+[[tool.mypy.overrides]]
+module = "ably"
+ignore_missing_imports = true
