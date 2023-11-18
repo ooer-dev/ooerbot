@@ -1,0 +1,27 @@
+---
+name: Lint
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: pip install -r dev-requirements.txt -r requirements.txt
+
+      - name: Lint
+        run: ruff check . && ruff format --diff .
+
+      - name: Type check
+        run: mypy

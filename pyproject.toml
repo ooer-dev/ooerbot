@@ -1,0 +1,12 @@
+[tool.ruff.lint]
+select = ["F", "W", "E", "C90", "I", "S", "B", "A", "C4", "Q"]
+ignore = ["S101", "S311"]
+
+[tool.mypy]
+plugins = [
+    "pydantic.mypy"
+]
+files = "."
+python_version = "3.10"
+platform = "linux"
+strict = true

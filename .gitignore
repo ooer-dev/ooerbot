@@ -1,0 +1,7 @@
+# Ignore directories
+__pycache__/
+*.egg-info/
+
+# Ignore files
+*.py[cod]
+.env
