@@ -1,3 +1,5 @@
+import random
+
 from discord import Embed, Role
 from discord.ext import commands
 from discord.ext.commands import Context
@@ -20,6 +22,16 @@ class Utilities(commands.Cog):
             description="\n".join(members),
         )
         embed.set_footer(text=f"Total: {len(members)}")
+
+        await ctx.send(embed=embed)
+
+    @commands.command()
+    async def raffle(self, ctx: Context[OoerBot], *, role: Role) -> None:
+        """Select a random member with a given role."""
+
+        winner = random.choice(role.members).mention
+
+        embed = Embed(title=f"{winner} is one of today's lucky 10,000!")
 
         await ctx.send(embed=embed)
 
