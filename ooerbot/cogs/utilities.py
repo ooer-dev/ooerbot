@@ -25,13 +25,17 @@ class Utilities(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command()
-    async def raffle(self, ctx: Context[OoerBot], *, role: Role) -> None:
+    @commands.command(aliases=("raffleany",))
+    @commands.guild_only()
+    async def raffle(self, ctx: Context[OoerBot], *, role: Role | None = None) -> None:
         """Select a random member with a given role."""
 
-        winner = random.choice(role.members).mention
+        assert ctx.guild is not None
 
-        embed = Embed(title=f"{winner} is one of today's lucky 10,000!")
+        members = role.members if role else ctx.guild.members
+        winner = random.choice(members).mention
+
+        embed = Embed(description=f"{winner} is one of today's lucky 10,000!")
 
         await ctx.send(embed=embed)
 
