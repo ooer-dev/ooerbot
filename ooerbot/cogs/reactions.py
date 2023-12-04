@@ -73,7 +73,11 @@ class Reactions(commands.Cog):
             target = message.content.removeprefix(reaction.trigger + " ")
             response = response.replace("%target%", target)
 
-        await messageable.send(content=response, reference=reference)  # type: ignore[arg-type]
+        await messageable.send(
+            content=response,
+            reference=reference,  # type: ignore[arg-type]
+            mention_author=False,
+        )
 
     def _get_possible_reactions(self, message: discord.Message) -> list[Reaction]:
         trigger: str = message.content.lower().rstrip()
