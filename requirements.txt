@@ -6,7 +6,7 @@
 #
 ably==2.0.2
     # via -r requirements.in
-aiohttp==3.9.0
+aiohttp==3.9.2
     # via
     #   -r requirements.in
     #   discord-py
@@ -41,7 +41,9 @@ hpack==4.0.0
 httpcore==0.17.3
     # via httpx
 httpx[http2]==0.24.1
-    # via ably
+    # via
+    #   ably
+    #   httpx
 hyperframe==6.0.1
     # via h2
 idna==3.4
