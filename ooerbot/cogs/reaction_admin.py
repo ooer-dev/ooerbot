@@ -18,10 +18,8 @@ class ReactionAdmin(commands.Cog):
         await self.api.close()
 
     @commands.command(aliases=("addcustreact", "acr"))
-    @commands.check_any(
-        commands.guild_only(),
-        commands.has_permissions(administrator=True),
-    )
+    @commands.guild_only()
+    @commands.has_permissions(administrator=True)
     async def addreaction(
         self,
         ctx: Context[OoerBot],
@@ -42,10 +40,8 @@ class ReactionAdmin(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command(aliases=("editcustreact", "ecr"))
-    @commands.check_any(
-        commands.guild_only(),
-        commands.has_permissions(administrator=True),
-    )
+    @commands.guild_only()
+    @commands.has_permissions(administrator=True)
     async def editreaction(
         self,
         ctx: Context[OoerBot],
@@ -66,10 +62,8 @@ class ReactionAdmin(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command(aliases=("listcustreact", "lcr"))
-    @commands.check_any(
-        commands.guild_only(),
-        commands.has_permissions(administrator=True),
-    )
+    @commands.guild_only()
+    @commands.has_permissions(administrator=True)
     async def listreactions(self, ctx: Context[OoerBot]) -> None:
         """Lists all reactions."""
 
@@ -78,7 +72,7 @@ class ReactionAdmin(commands.Cog):
         )
 
     @commands.command(aliases=("showcustreact", "scr"))
-    @commands.check_any(commands.guild_only())
+    @commands.guild_only()
     async def showreaction(self, ctx: Context[OoerBot], reaction_id: int) -> None:
         """Shows a reaction."""
 
@@ -93,10 +87,8 @@ class ReactionAdmin(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command(aliases=("delcustreact", "dcr"))
-    @commands.check_any(
-        commands.guild_only(),
-        commands.has_permissions(administrator=True),
-    )
+    @commands.guild_only()
+    @commands.has_permissions(administrator=True)
     async def deletereaction(self, ctx: Context[OoerBot], reaction_id: int) -> None:
         """Deletes the reaction."""
 
@@ -109,10 +101,8 @@ class ReactionAdmin(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command(name="crca")
-    @commands.check_any(
-        commands.guild_only(),
-        commands.has_permissions(administrator=True),
-    )
+    @commands.guild_only()
+    @commands.has_permissions(administrator=True)
     async def contains_anywhere(self, ctx: Context[OoerBot], reaction_id: int) -> None:
         """Toggles searching for the trigger anywhere in a message."""
 
@@ -131,10 +121,8 @@ class ReactionAdmin(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command(name="crdm")
-    @commands.check_any(
-        commands.guild_only(),
-        commands.has_permissions(administrator=True),
-    )
+    @commands.guild_only()
+    @commands.has_permissions(administrator=True)
     async def dm_response(self, ctx: Context[OoerBot], reaction_id: int) -> None:
         """Toggles direct messaging the reaction response."""
 
@@ -153,10 +141,8 @@ class ReactionAdmin(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command(name="crad")
-    @commands.check_any(
-        commands.guild_only(),
-        commands.has_permissions(administrator=True),
-    )
+    @commands.guild_only()
+    @commands.has_permissions(administrator=True)
     async def delete_trigger(self, ctx: Context[OoerBot], reaction_id: int) -> None:
         """Toggles deleting the reaction trigger."""
 
