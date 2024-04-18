@@ -6,7 +6,7 @@
 #
 ably==2.0.2
     # via -r requirements.in
-aiohttp==3.9.0
+aiohttp==3.9.4
     # via
     #   -r requirements.in
     #   discord-py
