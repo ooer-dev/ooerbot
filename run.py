@@ -12,6 +12,7 @@ def main() -> None:
         datefmt="%Y-%m-%d %H:%M:%S",
         level=settings.log_level,
     )
+    logging.getLogger("ably").setLevel(logging.WARNING)
 
     OoerBot(settings=settings).run(settings.discord_bot_token, log_handler=None)
 
