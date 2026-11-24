@@ -12,16 +12,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
 
-      - name: Set up Python
-        uses: actions/setup-python@v7
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v10.4.0
         with:
           python-version: "3.13"
 
       - name: Install dependencies
-        run: pip install -r dev-requirements.txt -r requirements.txt
+        run: uv sync --locked
 
       - name: Lint
-        run: ruff check . && ruff format --diff .
+        run: uv run ruff check . && uv run ruff format --diff .
 
       - name: Type check
-        run: mypy
+        run: uv run mypy
