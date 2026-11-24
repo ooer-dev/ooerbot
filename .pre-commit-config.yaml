@@ -1,15 +1,15 @@
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.1.6
+    rev: v0.17.6
     hooks:
       - id: ruff
       - id: ruff-format
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.7.0
+    rev: v2.4.1
     hooks:
       - id: mypy
         additional_dependencies:
-          - aiohttp==3.9.0
-          - discord.py==2.3.2
-          - pydantic==2.5.1
-          - pydantic-settings==2.1.0
+          - aiohttp==3.14.5
+          - discord.py==2.7.1
+          - pydantic==2.14.4
+          - pydantic-settings==2.16.3
