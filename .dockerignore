@@ -1,0 +1,6 @@
+*
+!ooerbot/
+!pyproject.toml
+!run.py
+!uv.lock
+**/__pycache__/
